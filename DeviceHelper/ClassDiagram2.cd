@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DeviceHelper.LeapHelper">
+    <Position X="5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAFAAAAAAAAAAIAAAACAAAACAACAAAA=</HashCode>
+      <FileName>LeapMotion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeviceHelper.KinectHelper" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAGAAAAFQAQAAAAAAAAAgkACAAABgABACAAiCAAA=</HashCode>
+      <FileName>KinectHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeviceHelper.LeapListener">
+    <Position X="2.25" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="DeviceHelper.LeapListener.SwipeEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>LeapListener.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="DeviceHelper.LeapListener.FingerEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>LeapListener.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="DeviceHelper.LeapListener.CircleEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>LeapListener.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="DeviceHelper.LeapListener.TypeScreenEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>LeapListener.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAAIAAAAAAAAAAAAgAAAgAAAgAUAAQAAAMAAAAABAA=</HashCode>
+      <FileName>LeapListener.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DeviceHelper.GestureType" Collapsed="true">
+    <Position X="8.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAEAIAAAACAAAAAAAAAAASAAAAAAAAAiAA=</HashCode>
+      <FileName>GestureType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DeviceHelper.SwipeType" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAFAAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>SwipeType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

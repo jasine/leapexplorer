@@ -1,0 +1,38 @@
+﻿<Window x:Class="LeapExplorer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LeapExplorer" KeyDown="Window_KeyDown" Name="main"
+
+        xmlns:flow="clr-namespace:FlowComponent;assembly=FlowComponent"
+        xmlns:flowComponent="clr-namespace:FlowComponent;assembly=FlowComponent" AllowsTransparency="True"
+        WindowStyle="None" Loaded="Window_Loaded" Icon="resouces/logo.ico" >
+    <Grid>
+        <flowComponent:FlowControl x:Name="flow" Margin="0" Width="500" Height="300">
+
+        </flowComponent:FlowControl>
+
+        <Grid Height="58" Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                <Image Name="ImgMedia" Source="resouces\photo.png" VerticalAlignment="Center"></Image>
+                <TextBlock Name="fileInfo" Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="42" Foreground="White">
+                </TextBlock>
+            </StackPanel>
+            <Border BorderBrush="White" BorderThickness="1" Background="White" Opacity="0.25" CornerRadius="28"></Border>
+        </Grid>
+        <Slider Height="20" Margin="33,0,33,3" Name="slider" VerticalAlignment="Bottom"
+                ValueChanged="slider_ValueChanged" Focusable="False" Opacity="0.8" />
+        <Canvas x:Name="StickMen" Width="200" Height="150" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+    </Grid>
+    <Window.Resources>
+        <Storyboard x:Key="sb_start">
+            <DoubleAnimation Storyboard.TargetName="main" Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:1.5" />
+        </Storyboard>
+        <Storyboard x:Key="sb_end">
+            <DoubleAnimation From="1" To="0" Storyboard.TargetName="main" Storyboard.TargetProperty="Opacity"
+                             Duration="00:00:0.7">
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+</Window>

@@ -1,0 +1,376 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cc ="clr-namespace:Sheva.Windows.Controls"
+    >
+  <cc:NegativeValueConverter x:Key="converter"/>
+
+  <!--Default Transition Template-->
+  <ControlTemplate TargetType="{x:Type cc:TransitionControl}"  x:Key="{x:Static cc:TransitionControl.DefaultTemplateKey}">
+    <Grid>
+      <ContentPresenter
+          Name="PART_ContentHost"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding Content}" />
+    </Grid>
+  </ControlTemplate>
+
+  <!--Fading Transition Template-->
+  <ControlTemplate TargetType="{x:Type cc:TransitionControl}" x:Key="{x:Static cc:TransitionControl.FadingTemplateKey}">
+    <Grid>
+      <ContentPresenter
+          Name="PART_ContentHost"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding Content}" />
+      <ContentPresenter
+          Name="PART_StaleContentHost" 
+          IsHitTestVisible="False"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding StaleContent}"/>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsContentChanged" Value="True">
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation 
+                  From="1" 
+                  To="0" 
+                  Duration="00:00:0.7" 
+                  Storyboard.TargetProperty="Opacity" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+              <DoubleAnimation 
+                  From="0" 
+                  To="1" 
+                  Duration="00:00:0.7" 
+                  Storyboard.TargetProperty="Opacity" 
+                  Storyboard.TargetName="PART_ContentHost"/>
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <!--Wiping Transition Template-->
+  <ControlTemplate TargetType="{x:Type cc:TransitionControl}" x:Key="{x:Static cc:TransitionControl.WipingTemplateKey}">
+    <Grid>
+      <ContentPresenter
+          Name="PART_ContentHost"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding Content}" />
+      <ContentPresenter
+          Name="PART_StaleContentHost"
+          IsHitTestVisible="False"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding StaleContent}">
+        <ContentPresenter.OpacityMask>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Offset="0" Color="#00000000"/>
+            <GradientStop Offset="0" Color="#FF000000"/>
+          </LinearGradientBrush>
+        </ContentPresenter.OpacityMask>
+      </ContentPresenter>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsContentChanged" Value="True">
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation 
+                  From="1" 
+                  To="0" 
+                  Duration="00:00:0.5" 
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[1].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+              <DoubleAnimation 
+                  From="1" 
+                  To="0" 
+                  Duration="00:00:0.5" 
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[0].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <!--Opening Transition Template-->
+  <ControlTemplate TargetType="{x:Type cc:TransitionControl}" x:Key="{x:Static cc:TransitionControl.OpeningTemplateKey}">
+    <Grid>
+      <ContentPresenter
+          Name="PART_ContentHost"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding Content}" />
+      <ContentPresenter
+          Name="PART_StaleContentHost" 
+          IsHitTestVisible="False"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding StaleContent}">
+        <ContentPresenter.OpacityMask>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Offset="0" Color="#FF000000"></GradientStop>
+            <GradientStop Offset="0.5" Color="#00000000"></GradientStop>
+            <GradientStop Offset="0.5" Color="#00000000"></GradientStop>
+            <GradientStop Offset="1" Color="#FF000000"></GradientStop>
+          </LinearGradientBrush>
+        </ContentPresenter.OpacityMask>
+      </ContentPresenter>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsContentChanged" Value="True">
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation 
+                  From="0.5" 
+                  To="0" 
+                  Duration="00:00:0.7"
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[1].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+              <DoubleAnimation 
+                  From="0.5" 
+                  To="1" 
+                  Duration="00:00:0.7"
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <!--Closing Transition Template-->
+  <ControlTemplate TargetType="{x:Type cc:TransitionControl}" x:Key="{x:Static cc:TransitionControl.ClosingTemplateKey}">
+    <Grid>
+      <ContentPresenter
+          Name="PART_ContentHost"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding Content}" />
+      <ContentPresenter
+          Name="PART_StaleContentHost" 
+          IsHitTestVisible="False"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding StaleContent}">
+        <ContentPresenter.OpacityMask>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Offset="0" Color="#00000000"></GradientStop>
+            <GradientStop Offset="0.5" Color="#FF000000"></GradientStop>
+            <GradientStop Offset="1" Color="#00000000"></GradientStop>
+          </LinearGradientBrush>
+        </ContentPresenter.OpacityMask>
+      </ContentPresenter>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsContentChanged" Value="True">
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation 
+                  From="0" 
+                  To="0.5" 
+                  Duration="00:00:0.7" 
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[0].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+              <DoubleAnimation 
+                  From="1" 
+                  To="0.5" 
+                  Duration="00:00:0.7" 
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+<!--Waving Transition Template-->
+<ControlTemplate TargetType="{x:Type cc:TransitionControl}" x:Key="{x:Static cc:TransitionControl.WavingTemplateKey}">
+    <Grid>
+      <ContentPresenter
+          Name="PART_ContentHost"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding Content}" />
+      <ContentPresenter
+          Name="PART_StaleContentHost" 
+          IsHitTestVisible="False"
+          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          Content="{TemplateBinding StaleContent}">
+        <ContentPresenter.OpacityMask>
+          <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="1" RadiusY="1">
+            <RadialGradientBrush.GradientStops>
+              <GradientStop Offset="0"  Color="#00000000"/>
+              <GradientStop Offset="0"  Color="#FF000000"/>
+            </RadialGradientBrush.GradientStops>
+          </RadialGradientBrush>
+        </ContentPresenter.OpacityMask>
+      </ContentPresenter>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsContentChanged" Value="True">
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation 
+                  From="0" 
+                  To="1" 
+                  Duration="00:00:0.7" 
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[0].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+              <DoubleAnimation 
+                  From="0" 
+                  To="1" 
+                  Duration="00:00:0.7" 
+                  Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[1].Offset" 
+                  Storyboard.TargetName="PART_StaleContentHost"/>
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+      </Trigger>
+    </ControlTemplate.Triggers>
+</ControlTemplate>
+
+  <!--Sliding Transition Template-->
+  <ControlTemplate TargetType="{x:Type cc:TransitionControl}" x:Key="{x:Static cc:TransitionControl.SlidingTemplateKey}">
+    <Grid ClipToBounds="True" Margin="0">
+      <Grid Name="templateRoot" Margin="0">
+        <Grid.RenderTransform>
+          <TranslateTransform X="{Binding Path=ActualWidth, ElementName=templateRoot, Converter={StaticResource converter}}"/>
+        </Grid.RenderTransform>
+        <ContentPresenter
+            Name="PART_StaleContentHost" 
+            IsHitTestVisible="False"
+            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+            ContentTemplate="{TemplateBinding ContentTemplate}"
+            Content="{TemplateBinding StaleContent}" Visibility="Hidden"/>
+        <ContentPresenter
+            Name="PART_ContentHost"
+            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+            ContentTemplate="{TemplateBinding ContentTemplate}"
+            Content="{TemplateBinding Content}">
+          <ContentPresenter.RenderTransform>
+            <TranslateTransform X="{Binding Path=ActualWidth, ElementName=PART_ContentHost}"/>
+          </ContentPresenter.RenderTransform>
+        </ContentPresenter>
+      </Grid>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsContentChanged" Value="True">
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation 
+                  From="0" 
+                  Duration="00:00:0.5" 
+                  Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                  Storyboard.TargetName="templateRoot"/>
+              <ObjectAnimationUsingKeyFrames 
+						    Storyboard.TargetName="PART_StaleContentHost"
+						    Storyboard.TargetProperty="Visibility" 
+						    Duration="00:00:0.5">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                  <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Visible</Visibility>
+                  </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="00:00:0.5">
+                  <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Hidden</Visibility>
+                  </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+              </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+<Style TargetType="{x:Type cc:TransitionControl}">
+  <Style.Triggers>
+    <Trigger Property="TransitionEffect" Value="None">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <DynamicResource
+              ResourceKey="{x:Static cc:TransitionControl.DefaultTemplateKey}" />
+        </Setter.Value>
+      </Setter>
+    </Trigger>
+    <Trigger Property="TransitionEffect" Value="Fading">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <DynamicResource
+              ResourceKey="{x:Static cc:TransitionControl.FadingTemplateKey}" />
+        </Setter.Value>
+      </Setter>
+    </Trigger>
+    <Trigger Property="TransitionEffect" Value="Wiping">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <DynamicResource
+              ResourceKey="{x:Static cc:TransitionControl.WipingTemplateKey}" />
+        </Setter.Value>
+      </Setter>
+    </Trigger>
+    <Trigger Property="TransitionEffect" Value="Opening">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <DynamicResource
+              ResourceKey="{x:Static cc:TransitionControl.OpeningTemplateKey}" />
+        </Setter.Value>
+      </Setter>
+    </Trigger>
+    <Trigger Property="TransitionEffect" Value="Closing">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <DynamicResource
+              ResourceKey="{x:Static cc:TransitionControl.ClosingTemplateKey}" />
+        </Setter.Value>
+      </Setter>
+    </Trigger>
+    <Trigger Property="TransitionEffect" Value="Sliding">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <DynamicResource
+              ResourceKey="{x:Static cc:TransitionControl.SlidingTemplateKey}" />
+        </Setter.Value>
+      </Setter>
+    </Trigger>
+    <Trigger Property="TransitionEffect" Value="Waving">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <DynamicResource
+              ResourceKey="{x:Static cc:TransitionControl.WavingTemplateKey}" />
+        </Setter.Value>
+      </Setter>
+    </Trigger>
+  </Style.Triggers>
+</Style>
+</ResourceDictionary>
